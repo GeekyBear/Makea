@@ -1,24 +1,69 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { Test } from '@nestjs/testing';
+import { AppModule } from '../src/app.module';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { PrismaService } from '../../backend/src/prisma/prisma.service';
 
-describe('AppController (e2e)', () => {
+describe('App e2e', () => {
   let app: INestApplication;
-
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
+  let prisma: PrismaService;
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [AppModule]
+    }).compile(); // Only compile. Integration
+    app = moduleRef.createNestApplication();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true
+      }));
     await app.init();
+
+    prisma = app.get(PrismaService);
+    await prisma.cleandb();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  afterAll(() => {
+    app.close();
   });
-});
+
+  describe('Auth', () => {
+    describe('Signup', () => { });
+
+    describe('Signin', () => { });
+
+  });
+
+  describe('User', () => {
+    describe('Get me', () => { });
+
+    describe('Edit user', () => { });
+
+  });
+
+  describe('Product', () => {
+    describe('Create product', () => { });
+
+    describe('Get product', () => { });
+
+    describe('Get product by id', () => { });
+
+    describe('Edit product', () => { });
+
+    describe('Delete product', () => { });
+
+  });
+
+  describe('Category', () => {
+    describe('Create category', () => { });
+
+    describe('Get category', () => { });
+
+    describe('Get category by id', () => { });
+
+    describe('Edit category', () => { });
+
+    describe('Delete category', () => { });
+
+  });
+
+  it.todo('should pass');
+})
