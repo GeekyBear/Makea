@@ -4,7 +4,6 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from '../../backend/src/prisma/prisma.service';
 import * as pactum from 'pactum';
 import { AuthDto } from 'src/auth/dto';
-import { inspect } from 'util';
 import { EditUserDto } from 'src/user/dto';
 
 describe('App e2e', () => {
