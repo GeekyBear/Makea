@@ -9,6 +9,7 @@ import { EditUserDto } from 'src/user/dto';
 describe('App e2e', () => {
   let app: INestApplication;
   let prisma: PrismaService;
+
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule]
@@ -149,11 +150,24 @@ describe('App e2e', () => {
   });
 
   describe('Product', () => {
-    describe('Create product', () => { });
+    describe('Get empty products', () => {
+      // it('should get products', () => {
+      //   return pactum
+      //     .spec()
+      //     .get('/products')
+      //     .withHeaders({
+      //       Authorization: 'Bearer $S{userAT}'
+      //     })
+      //     .expectStatus(200)
+      //     .inspect()
+      // })
+    });
 
-    describe('Get product', () => { });
+    describe('Get products', () => { });
 
     describe('Get product by id', () => { });
+
+    describe('Create product', () => { });
 
     describe('Edit product', () => { });
 
